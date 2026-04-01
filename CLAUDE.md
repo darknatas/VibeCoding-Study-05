@@ -27,18 +27,30 @@ A snapshot of the working config is kept at `paperclip/config.json` in this repo
 ## Commands
 
 ```bash
-# Start (preserves existing config — do NOT use --yes, it resets to defaults)
+# 백그라운드 실행 (pm2 — 권장)
+pm2 start "npx paperclipai run" --name paperclip
+pm2 stop paperclip
+pm2 restart paperclip
+pm2 logs paperclip
+
+# 포그라운드 실행 (설정 유지 — --yes 사용 금지)
 npx paperclipai onboard
 
-# Update a specific config section interactively
+# 특정 설정 섹션 업데이트
 npx paperclipai configure -s server
 
-# Check server health
+# 서버 상태 확인
 curl http://127.0.0.1:3100/api/health
 
-# View logs
+# 로그 확인
 tail -f ~/.paperclip/instances/default/logs/*.log
 ```
+
+## 프로세스 관리 (pm2)
+
+pm2로 백그라운드 실행 중. EC2 재부팅 시 자동 시작 등록 완료(`pm2 startup` + `pm2 save`).
+
+pm2 로그 위치: `~/.pm2/logs/paperclip-out.log`
 
 ## Current Configuration
 

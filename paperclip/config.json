@@ -1,0 +1,54 @@
+{
+  "$meta": {
+    "version": 1,
+    "updatedAt": "2026-04-01T07:42:56.913Z",
+    "source": "onboard"
+  },
+  "database": {
+    "mode": "embedded-postgres",
+    "embeddedPostgresDataDir": "/home/ec2-user/.paperclip/instances/default/db",
+    "embeddedPostgresPort": 54329,
+    "backup": {
+      "enabled": true,
+      "intervalMinutes": 60,
+      "retentionDays": 30,
+      "dir": "/home/ec2-user/.paperclip/instances/default/data/backups"
+    }
+  },
+  "logging": {
+    "mode": "file",
+    "logDir": "/home/ec2-user/.paperclip/instances/default/logs"
+  },
+  "server": {
+    "deploymentMode": "authenticated",
+    "exposure": "public",
+    "host": "0.0.0.0",
+    "port": 3100,
+    "allowedHostnames": [],
+    "serveUi": true
+  },
+  "auth": {
+    "baseUrlMode": "explicit",
+    "disableSignUp": false,
+    "publicBaseUrl": "http://52.79.215.84"
+  },
+  "storage": {
+    "provider": "local_disk",
+    "localDisk": {
+      "baseDir": "/home/ec2-user/.paperclip/instances/default/data/storage"
+    },
+    "s3": {
+      "bucket": "paperclip",
+      "region": "us-east-1",
+      "prefix": "",
+      "forcePathStyle": false
+    }
+  },
+  "secrets": {
+    "provider": "local_encrypted",
+    "strictMode": false,
+    "localEncrypted": {
+      "keyFilePath": "/home/ec2-user/.paperclip/instances/default/secrets/master.key"
+    }
+  }
+}

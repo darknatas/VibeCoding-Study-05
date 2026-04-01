@@ -1,0 +1,4 @@
+# Paperclip instance data (stored in ~/.paperclip, not here)
+*.key
+*.env
+.env*

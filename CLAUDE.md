@@ -19,7 +19,10 @@ Paperclip is installed globally via npx. Instance data lives outside this direct
 | Logs | `~/.paperclip/instances/default/logs/` |
 | DB | `~/.paperclip/instances/default/db/` (embedded PostgreSQL, port 54329) |
 | Backups | `~/.paperclip/instances/default/data/backups/` |
+| Storage | `~/.paperclip/instances/default/data/storage/` |
 | Secrets | `~/.paperclip/instances/default/secrets/master.key` |
+
+A snapshot of the working config is kept at `paperclip/config.json` in this repo for reference and recovery.
 
 ## Commands
 
@@ -32,23 +35,31 @@ npx paperclipai configure -s server
 
 # Check server health
 curl http://127.0.0.1:3100/api/health
+
+# View logs
+tail -f ~/.paperclip/instances/default/logs/*.log
 ```
 
-## Current Server Configuration
+## Current Configuration
 
 | Setting | Value |
 |---------|-------|
-| `deploymentMode` | `authenticated` |
-| `exposure` | `public` |
-| `host` | `0.0.0.0` |
-| `port` | `3100` |
-| `publicBaseUrl` | `http://52.79.215.84` |
+| `server.deploymentMode` | `authenticated` |
+| `server.exposure` | `public` |
+| `server.host` | `0.0.0.0` |
+| `server.port` | `3100` |
+| `auth.publicBaseUrl` | `http://52.79.215.84` |
+| `auth.baseUrlMode` | `explicit` |
+| `auth.disableSignUp` | `false` |
+| `database.mode` | `embedded-postgres` (port 54329) |
+| `storage.provider` | `local_disk` |
+| `secrets.provider` | `local_encrypted` |
 
 Access UI at: **http://52.79.215.84:3100**
 
 ## Important: Config Reset Issue
 
-`npx paperclipai onboard --yes` resets `config.json` to defaults (`host: 127.0.0.1`, `exposure: private`) every time. Always start with `npx paperclipai onboard` (no `--yes`) and choose **Advanced setup** to preserve settings. If config is accidentally reset, run `npx paperclipai configure -s server` to restore.
+`npx paperclipai onboard --yes` resets `config.json` to defaults (`host: 127.0.0.1`, `exposure: private`) every time. Always start with `npx paperclipai onboard` (no `--yes`) and choose **Advanced setup** to preserve settings. If config is accidentally reset, restore from `paperclip/config.json` in this repo, then run `npx paperclipai configure -s server`.
 
 ## AWS Requirement
 
